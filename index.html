@@ -16,7 +16,7 @@
       <!-- Left Column: Players -->
       <div class="column" id="playersColumn">
         <h2>Players</h2>
-        <ul id="pcList"></ul>
+        <!-- Player actions moved on top -->
         <h3>Player Attack</h3>
         <form id="playerActionForm">
           <label for="playerAttacker">Attacking PC:</label>
@@ -28,10 +28,13 @@
           <input type="number" id="playerWeaponDamage" placeholder="Weapon Damage" required />
           <button type="submit">Apply Player Attack</button>
         </form>
+        <!-- Then display PC cards -->
+        <ul id="pcList"></ul>
       </div>
       <!-- Right Column: NPCs -->
       <div class="column" id="npcsColumn">
         <h2>NPCs</h2>
+        <!-- NPC actions moved on top -->
         <form id="addEnemyForm">
           <input type="text" id="enemyName" placeholder="Enemy Name" required />
           <label for="enemyType">Enemy Type:</label>
@@ -62,7 +65,6 @@
           </div>
           <button type="submit">Add Enemy</button>
         </form>
-        <ul id="npcList"></ul>
         <h3>NPC Attack</h3>
         <form id="npcActionForm">
           <label for="npcAttacker">Attacking NPC:</label>
@@ -77,6 +79,8 @@
           <input type="number" id="npcWeaponDamage" placeholder="Weapon Damage" required />
           <button type="submit">Apply NPC Attack</button>
         </form>
+        <!-- Then display NPC cards -->
+        <ul id="npcList"></ul>
       </div>
     </div>
     <!-- Event Log -->
