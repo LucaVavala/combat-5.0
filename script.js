@@ -144,7 +144,7 @@ function updateNpcList() {
       cardHTML += renderStatRow("Defense", npc.defense, npc.id, "Defense");
       cardHTML += renderStatRow("Toughness", npc.toughness, npc.id, "Toughness");
       cardHTML += renderStatRow("Speed", npc.speed, npc.id, "Speed");
-      // Fortune stat removed for NPC mooks.
+      // Fortune stat is not displayed for mooks
       cardHTML += `<div class="statRow">
                      <span>Mook Count: <strong id="mook-${npc.id}">${npc.count}</strong></span>
                      <button data-id="${npc.id}" class="incMook">+</button>
@@ -156,13 +156,13 @@ function updateNpcList() {
       cardHTML += renderStatRow("Defense", npc.defense, npc.id, "Defense");
       cardHTML += renderStatRow("Toughness", npc.toughness, npc.id, "Toughness");
       cardHTML += renderStatRow("Speed", npc.speed, npc.id, "Speed");
-      // Fortune stat removed for all non-PC NPCs.
+      // Fortune stat removed for non-PC NPCs.
       cardHTML += renderStatRow("Wound Points", npc.woundPoints, npc.id, "Wound");
       if (npc.weapons && npc.weapons.length > 0) {
         cardHTML += `<div class="weaponList"><h4>Weapons:</h4><ul>`;
         npc.weapons.forEach(weapon => {
           const damageValue = weapon.damage.split("/")[0];
-          cardHTML += `<li><strong>${weapon.name}</strong>: ${damageValue}</li>`;
+          cardHTML += `<li><strong>${weapon.name}</strong>: ${damageValue} <button class="removeWeapon" data-npc="${npc.id}" data-weapon="${weapon.name}">-</button></li>`;
         });
         cardHTML += `</ul></div>`;
       }
@@ -173,9 +173,9 @@ function updateNpcList() {
           if (parts.length > 1) {
             const title = parts[0].trim();
             const description = parts.slice(1).join(':').trim();
-            cardHTML += `<li><strong>${title}</strong>: ${description}</li>`;
+            cardHTML += `<li><strong>${title}</strong>: ${description} <button class="removeSchtick" data-npc="${npc.id}" data-schtick="${schtick}">-</button></li>`;
           } else {
-            cardHTML += `<li><strong>${schtick}</strong></li>`;
+            cardHTML += `<li><strong>${schtick}</strong> <button class="removeSchtick" data-npc="${npc.id}" data-schtick="${schtick}">-</button></li>`;
           }
         });
         cardHTML += `</ul></div>`;
@@ -190,6 +190,8 @@ function updateNpcList() {
   });
   attachNpcListeners();
   attachRemoveNpcListeners();
+  attachWeaponRemoveListeners();
+  attachSchtickRemoveListeners();
 }
 
 function updateAttackDropdowns() {
@@ -425,7 +427,7 @@ function attachNpcListeners() {
     });
   });
   
-  // Add new listeners for NPC stats:
+  // New listeners for additional NPC stats:
   document.querySelectorAll('.incDefense').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = parseInt(btn.dataset.id, 10);
@@ -484,8 +486,6 @@ function attachNpcListeners() {
   });
 }
 
-
-// New function to attach Remove button listeners for NPC cards
 function attachRemoveNpcListeners() {
   document.querySelectorAll('.removeEnemy').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -494,6 +494,36 @@ function attachRemoveNpcListeners() {
       updateAttackDropdowns();
       updateNpcList();
       logEvent(`Removed enemy with id ${id}`);
+    });
+  });
+}
+
+function attachWeaponRemoveListeners() {
+  document.querySelectorAll('.removeWeapon').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const npcId = parseInt(btn.dataset.npc, 10);
+      const weaponName = btn.dataset.weapon;
+      const npc = npcs.find(npc => npc.id === npcId);
+      if (npc && npc.weapons) {
+        npc.weapons = npc.weapons.filter(w => w.name !== weaponName);
+        logEvent(`Removed weapon "${weaponName}" from ${npc.name}`);
+        updateNpcList();
+      }
+    });
+  });
+}
+
+function attachSchtickRemoveListeners() {
+  document.querySelectorAll('.removeSchtick').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const npcId = parseInt(btn.dataset.npc, 10);
+      const schtickItem = btn.dataset.schtick;
+      const npc = npcs.find(npc => npc.id === npcId);
+      if (npc && npc.schticks) {
+        npc.schticks = npc.schticks.filter(s => s !== schtickItem);
+        logEvent(`Removed schtick "${schtickItem}" from ${npc.name}`);
+        updateNpcList();
+      }
     });
   });
 }
