@@ -144,7 +144,7 @@ function updateNpcList() {
       cardHTML += renderStatRow("Defense", npc.defense, npc.id, "Defense");
       cardHTML += renderStatRow("Toughness", npc.toughness, npc.id, "Toughness");
       cardHTML += renderStatRow("Speed", npc.speed, npc.id, "Speed");
-      cardHTML += renderStatRow("Fortune", npc.fortune || 0, npc.id, "Fortune");
+      // Fortune stat removed for NPC mooks.
       cardHTML += `<div class="statRow">
                      <span>Mook Count: <strong id="mook-${npc.id}">${npc.count}</strong></span>
                      <button data-id="${npc.id}" class="incMook">+</button>
@@ -156,9 +156,8 @@ function updateNpcList() {
       cardHTML += renderStatRow("Defense", npc.defense, npc.id, "Defense");
       cardHTML += renderStatRow("Toughness", npc.toughness, npc.id, "Toughness");
       cardHTML += renderStatRow("Speed", npc.speed, npc.id, "Speed");
-      cardHTML += renderStatRow("Fortune", npc.fortune || 0, npc.id, "Fortune");
+      // Fortune stat removed for all non-PC NPCs.
       cardHTML += renderStatRow("Wound Points", npc.woundPoints, npc.id, "Wound");
-      // Display weapons (showing name and first damage number)
       if (npc.weapons && npc.weapons.length > 0) {
         cardHTML += `<div class="weaponList"><h4>Weapons:</h4><ul>`;
         npc.weapons.forEach(weapon => {
@@ -167,7 +166,6 @@ function updateNpcList() {
         });
         cardHTML += `</ul></div>`;
       }
-      // Display schticks with only the title bolded
       if (npc.schticks && npc.schticks.length > 0) {
         cardHTML += `<div class="schtickList"><h4>Schticks:</h4><ul>`;
         npc.schticks.forEach(schtick => {
@@ -182,7 +180,6 @@ function updateNpcList() {
         });
         cardHTML += `</ul></div>`;
       }
-      // Add a '+' button for database panel
       cardHTML += `<button data-id="${npc.id}" class="addDB">+</button>`;
     }
     cardHTML += `<button data-id="${npc.id}" class="removeEnemy removeBtn">Remove</button>`;
@@ -192,7 +189,7 @@ function updateNpcList() {
     npcList.appendChild(li);
   });
   attachNpcListeners();
-  attachRemoveNpcListeners(); // Added to attach Remove button listeners
+  attachRemoveNpcListeners();
 }
 
 function updateAttackDropdowns() {
@@ -235,7 +232,6 @@ function updateAttackDropdowns() {
 ===================================*/
 function openDBPanel(npcId) {
   currentNpcIdModal = npcId;
-  // Populate weapons list
   weaponListDB.innerHTML = '';
   weaponDatabase.forEach(item => {
     const li = document.createElement('li');
@@ -247,7 +243,6 @@ function openDBPanel(npcId) {
     });
     weaponListDB.appendChild(li);
   });
-  // Populate schticks list (bold only the title before the colon)
   schtickListDB.innerHTML = '';
   schtickDatabase.forEach(item => {
     const li = document.createElement('li');
@@ -322,7 +317,6 @@ function attachPcListeners() {
       if (pc) { pc.attack--; if(pc.attack < 0) pc.attack = 0; updatePcList(); logEvent(`Decreased ${pc.name}'s Attack to ${pc.attack}`); }
     });
   });
-  // (Similar listeners for Backup Attack, Defense, Toughness, Speed, Fortune, and Wound Points)
   document.querySelectorAll('.incBackupAttack').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = parseInt(btn.dataset.id, 10);
@@ -410,7 +404,6 @@ function attachPcListeners() {
 }
 
 function attachNpcListeners() {
-  // '+' button for database panel
   document.querySelectorAll('.addDB').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = parseInt(btn.dataset.id, 10);
@@ -431,7 +424,7 @@ function attachNpcListeners() {
       if (npc) { npc.attack--; if(npc.attack < 0) npc.attack = 0; updateNpcList(); logEvent(`Decreased ${npc.name}'s Attack to ${npc.attack}`); }
     });
   });
-  // (Ensure similar listeners for Defense, Toughness, Speed, Fortune, Wound Points, and Mook Count)
+  // (Ensure similar listeners for Defense, Toughness, Speed, etc.)
 }
 
 // New function to attach Remove button listeners for NPC cards
@@ -488,7 +481,6 @@ addEnemyForm.addEventListener('submit', (e) => {
       defense: 13,
       toughness: 0,
       speed: 5,
-      fortune: 0,
       templateDamage: template.templateDamage
     };
     enemy.count = parseInt(mookCountInput.value, 10) || 1;
@@ -522,7 +514,6 @@ addEnemyForm.addEventListener('submit', (e) => {
       defense: baseDefense,
       toughness: baseToughness,
       speed: baseSpeed,
-      fortune: 0,
       woundPoints: 0,
       attackImpair: 0,
       defenseImpair: 0,
