@@ -424,8 +424,66 @@ function attachNpcListeners() {
       if (npc) { npc.attack--; if(npc.attack < 0) npc.attack = 0; updateNpcList(); logEvent(`Decreased ${npc.name}'s Attack to ${npc.attack}`); }
     });
   });
-  // (Ensure similar listeners for Defense, Toughness, Speed, etc.)
+  
+  // Add new listeners for NPC stats:
+  document.querySelectorAll('.incDefense').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.defense++; updateNpcList(); logEvent(`Increased ${npc.name}'s Defense to ${npc.defense}`); }
+    });
+  });
+  document.querySelectorAll('.decDefense').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.defense--; if(npc.defense < 0) npc.defense = 0; updateNpcList(); logEvent(`Decreased ${npc.name}'s Defense to ${npc.defense}`); }
+    });
+  });
+  document.querySelectorAll('.incToughness').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.toughness++; updateNpcList(); logEvent(`Increased ${npc.name}'s Toughness to ${npc.toughness}`); }
+    });
+  });
+  document.querySelectorAll('.decToughness').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.toughness--; if(npc.toughness < 0) npc.toughness = 0; updateNpcList(); logEvent(`Decreased ${npc.name}'s Toughness to ${npc.toughness}`); }
+    });
+  });
+  document.querySelectorAll('.incSpeed').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.speed++; updateNpcList(); logEvent(`Increased ${npc.name}'s Speed to ${npc.speed}`); }
+    });
+  });
+  document.querySelectorAll('.decSpeed').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.speed--; if(npc.speed < 0) npc.speed = 0; updateNpcList(); logEvent(`Decreased ${npc.name}'s Speed to ${npc.speed}`); }
+    });
+  });
+  document.querySelectorAll('.incWound').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.woundPoints++; updateNpcList(); logEvent(`Increased ${npc.name}'s Wound Points to ${npc.woundPoints}`); }
+    });
+  });
+  document.querySelectorAll('.decWound').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const npc = npcs.find(npc => npc.id === id);
+      if (npc) { npc.woundPoints--; if(npc.woundPoints < 0) npc.woundPoints = 0; updateNpcList(); logEvent(`Decreased ${npc.name}'s Wound Points to ${npc.woundPoints}`); }
+    });
+  });
 }
+
 
 // New function to attach Remove button listeners for NPC cards
 function attachRemoveNpcListeners() {
