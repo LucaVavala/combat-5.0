@@ -342,11 +342,17 @@ const weaponDatabase = [
   { name: "M14", damage: "13/5/2" },
   { name: "SvD Dragunov", damage: "13/5/3" },
   { name: "Tavor TAr-21", damage: "13/5/1" },
-  { name: "Winchester Model 70", damage: "12/5/5" }
+  { name: "Winchester Model 70", damage: "12/5/5" },
+  { name: "Katana in scabbard", damage: "6" },
+  { name: "Katana", damage: "10" },
+  { name: "Fire blast", damage: "10" },
+  { name: "Sai", damage: "8" }
 ];
 
 // Schticks Database – each entry is a string; only the title (text before the first colon) is bolded.
 const schtickDatabase = [
+  "Leadership: The character selects the number of allies and pays that amount in shots, each selected ally gets a +2 on their next roll",
+  "Smoke Bomb: once every sequence, the character can throw a smoke bomb to obscure the way and help their allies flee, giving the character and their allies a +2 to Speed when cheesing it",
   "Ablative Lackey: If at least one mook is up, as an interrupt after the foe takes Wound Points, the foe takes 0 Wound Points and 1 mook goes down.",
   "Anti-Mystical: +1 Defense vs. Creature Powers and Sorcery attacks.",
   "Anti-Tech: +1 Defense vs. Guns, Mutant, and Scroungetech attacks.",
