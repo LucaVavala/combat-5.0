@@ -12,29 +12,44 @@
     <h1>Feng Shui 2 Combat Tracker</h1>
   </header>
   <main>
-    <div class="columns">
-      <!-- Left Column: Players -->
-      <div class="column" id="playersColumn">
-        <h2>Players</h2>
-        <!-- Player actions moved on top -->
-        <h3>Player Attack</h3>
-        <form id="playerActionForm">
-          <label for="playerAttacker">Attacking PC:</label>
-          <select id="playerAttacker" required></select>
-          <label for="npcTarget">Target NPC:</label>
-          <select id="npcTarget" required></select>
-          <input type="text" id="playerRollResult" placeholder="Roll Result (e.g., 18 or 18!)" required />
-          <input type="number" id="playerModifier" placeholder="Modifier (optional)" />
-          <input type="number" id="playerWeaponDamage" placeholder="Weapon Damage" required />
-          <button type="submit">Apply Player Attack</button>
-        </form>
-        <!-- Then display PC cards -->
-        <ul id="pcList"></ul>
+    <!-- Actions Section -->
+    <section id="actions">
+      <div class="action-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <!-- Player Attack Form -->
+        <div style="flex: 1 1 45%;">
+          <h3>Player Attack</h3>
+          <form id="playerActionForm">
+            <label for="playerAttacker">Attacking PC:</label>
+            <select id="playerAttacker" required></select>
+            <label for="npcTarget">Target NPC:</label>
+            <select id="npcTarget" required></select>
+            <input type="text" id="playerRollResult" placeholder="Roll Result (e.g., 18 or 18!)" required />
+            <input type="number" id="playerModifier" placeholder="Modifier (optional)" />
+            <input type="number" id="playerWeaponDamage" placeholder="Weapon Damage" required />
+            <button type="submit">Apply Player Attack</button>
+          </form>
+        </div>
+        <!-- NPC Attack Form -->
+        <div style="flex: 1 1 45%;">
+          <h3>NPC Attack</h3>
+          <form id="npcActionForm">
+            <label for="npcAttacker">Attacking NPC:</label>
+            <select id="npcAttacker" required></select>
+            <label for="playerTarget">Target PC:</label>
+            <select id="playerTarget" required></select>
+            <div id="npcRollPanel">
+              <button type="button" id="npcRollDiceButton">Roll Dice (NPC)</button>
+              <div id="npcRollResult"></div>
+              <input type="number" id="npcModifier" placeholder="Modifier (optional)" />
+            </div>
+            <input type="number" id="npcWeaponDamage" placeholder="Weapon Damage" required />
+            <button type="submit">Apply NPC Attack</button>
+          </form>
+        </div>
       </div>
-      <!-- Right Column: NPCs -->
-      <div class="column" id="npcsColumn">
-        <h2>NPCs</h2>
-        <!-- NPC actions moved on top -->
+      <!-- Add Enemy Form (Full Width) -->
+      <div style="margin-top: 1rem;">
+        <h3>Add Enemy</h3>
         <form id="addEnemyForm">
           <input type="text" id="enemyName" placeholder="Enemy Name" required />
           <label for="enemyType">Enemy Type:</label>
@@ -65,24 +80,23 @@
           </div>
           <button type="submit">Add Enemy</button>
         </form>
-        <h3>NPC Attack</h3>
-        <form id="npcActionForm">
-          <label for="npcAttacker">Attacking NPC:</label>
-          <select id="npcAttacker" required></select>
-          <label for="playerTarget">Target PC:</label>
-          <select id="playerTarget" required></select>
-          <div id="npcRollPanel">
-            <button type="button" id="npcRollDiceButton">Roll Dice (NPC)</button>
-            <div id="npcRollResult"></div>
-            <input type="number" id="npcModifier" placeholder="Modifier (optional)" />
-          </div>
-          <input type="number" id="npcWeaponDamage" placeholder="Weapon Damage" required />
-          <button type="submit">Apply NPC Attack</button>
-        </form>
-        <!-- Then display NPC cards -->
+      </div>
+    </section>
+    
+    <!-- Character Cards Section -->
+    <div class="columns">
+      <!-- Left Column: Players -->
+      <div class="column" id="playersColumn">
+        <h2>Players</h2>
+        <ul id="pcList"></ul>
+      </div>
+      <!-- Right Column: NPCs -->
+      <div class="column" id="npcsColumn">
+        <h2>NPCs</h2>
         <ul id="npcList"></ul>
       </div>
     </div>
+    
     <!-- Event Log -->
     <section id="eventLog">
       <h2>Event Log</h2>
