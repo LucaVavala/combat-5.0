@@ -5,7 +5,7 @@
 ===================================*/
 const pcs = [
   { id: 100, name: "Ken", attack: 13, defense: 13, toughness: 6, speed: 8, fortune: 7, woundPoints: 0, isPC: true },
-  { id: 101, name: "Oleg", attack: 14, backupAttack: 13, defense: 14, toughness: 7, speed: 7, fortune: 7, woundPoints: 0, isPC: true },
+  { id: 101, name: "Oleg", attack: 13, backupAttack: 12, defense: 14, toughness: 7, speed: 8, fortune: 6, woundPoints: 0, isPC: true },
   { id: 102, name: "Bai Zhu", attack: 16, defense: 15, toughness: 5, speed: 6, fortune: 10, woundPoints: 0, isPC: true },
   { id: 103, name: "Shen Dao", attack: 14, defense: 13, toughness: 6, speed: 7, fortune: 8, woundPoints: 0, isPC: true }
 ];
